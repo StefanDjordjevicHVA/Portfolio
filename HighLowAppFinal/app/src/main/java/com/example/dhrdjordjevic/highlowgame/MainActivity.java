@@ -135,6 +135,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         mScoreText.setText("SCORE: " + mScore);
+        UpdateUI();
 
         if(mScore > mHighScore)
         {
