@@ -57,7 +57,7 @@
         android:layout_width="234dp"
         android:layout_height="34dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="4dp"
         android:layout_marginEnd="8dp"
         android:text="Score"
         app:layout_constraintEnd_toEndOf="parent"
@@ -79,7 +79,7 @@
     <ListView
         android:id="@+id/dice_throws"
         android:layout_width="321dp"
-        android:layout_height="69dp"
+        android:layout_height="149dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"

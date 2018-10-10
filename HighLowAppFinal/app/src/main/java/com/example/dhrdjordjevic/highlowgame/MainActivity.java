@@ -1,13 +1,18 @@
 package com.example.dhrdjordjevic.highlowgame;
 
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
@@ -20,6 +25,9 @@ public class MainActivity extends AppCompatActivity {
     private ImageButton mDiceButton;
     private TextView mHighScoreText;
     private TextView mScoreText;
+
+    private ArrayAdapter<String> mAdapter;
+    private List<String> mItems;
 
     private boolean mIsLower = false;
 
@@ -40,6 +48,12 @@ public class MainActivity extends AppCompatActivity {
         mHighScoreText = findViewById(R.id.highscore);
         mScoreText = findViewById(R.id.score);
 
+        mScoreText.setText("SCORE: " + mScore);
+        mHighScoreText.setText("HIGHSCORE: " + mHighScore);
+
+        mItems = new ArrayList<>();
+
+        UpdateUI();
 
         //Throwing all the images in an Array so I could easely acces them later on.
         mDiceImages = new int[] {R.drawable.d1, R.drawable.d2, R.drawable.d3,
@@ -56,8 +70,9 @@ public class MainActivity extends AppCompatActivity {
                 int nextInt = GetRandomInt();
                 mDiceButton.setImageResource(mDiceImages[nextInt]);
 
+
                 CalculateLowerOrHigher(mPrevThrow, nextInt);
-                System.out.println(mScore);
+                AddThrows(nextInt);
             }
         });
 
@@ -67,6 +82,8 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v)
             {
                 mIsLower = true;
+                Toast.makeText(MainActivity.this, "Next throw will be lower!", Toast.LENGTH_SHORT).show();
+
             }
         });
 
@@ -76,6 +93,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v)
             {
                 mIsLower = false;
+                Toast.makeText(MainActivity.this, "Next throw will be higher!", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -101,15 +119,52 @@ public class MainActivity extends AppCompatActivity {
         if(mIsLower && (previous > next))
         {
             mScore++;
+            Toast.makeText(this, "Good Job!", Toast.LENGTH_SHORT).show();
         } else if (mIsLower && previous < next)
         {
             mScore = 0;
+            Toast.makeText(this, "You Suck!", Toast.LENGTH_SHORT).show();
         } else if(!mIsLower && previous < next)
         {
             mScore++;
+            Toast.makeText(this, "Good Job!", Toast.LENGTH_SHORT).show();
         } else if (!mIsLower && previous > next)
         {
             mScore = 0;
+            Toast.makeText(this, "You Suck!", Toast.LENGTH_SHORT).show();
+        }
+
+        mScoreText.setText("SCORE: " + mScore);
+
+        if(mScore > mHighScore)
+        {
+            mHighScore = mScore;
+            mHighScoreText.setText("HIGHSCORE: " + mHighScore);
+            UpdateUI();
+        }
+        UpdateUI();
+    }
+
+    private void UpdateUI()
+    {
+        if (mAdapter == null) {
+            mAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, mItems);
+            mListThrows.setAdapter(mAdapter);
+        } else {
+            mAdapter.notifyDataSetChanged();
+        }
+    }
+
+    public void AddThrows(int dice)
+    {
+        int diceThrow = dice + 1;
+
+        String newItem = "" + diceThrow;
+
+        if(!newItem.isEmpty())
+        {
+            mItems.add(newItem);
+            UpdateUI();
         }
     }
 
