@@ -143,7 +143,6 @@ public class MainActivity extends AppCompatActivity {
             mHighScoreText.setText("HIGHSCORE: " + mHighScore);
             UpdateUI();
         }
-        UpdateUI();
     }
 
     private void UpdateUI()
