@@ -26,7 +26,11 @@ class LogicaActivity : AppCompatActivity() {
 
     private fun onAwnserClick()
     {
-        if(tiAwnser1.toString().equals("T")) onAwnserCorrect()
+        if((etAwn1.text.toString() == "T")
+            && (etAwn2.text.toString() == "F")
+            && (etAwn3.text.toString() == "F")
+            && (etAwn4.text.toString() == "F")) onAwnserCorrect()
+        else onAwnserIncorrect()
     }
 
 

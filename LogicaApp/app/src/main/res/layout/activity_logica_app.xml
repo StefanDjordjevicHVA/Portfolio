@@ -157,6 +157,7 @@
         app:layout_constraintTop_toBottomOf="@+id/tvAB">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etAwn1"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:digits="T, F" />
@@ -172,6 +173,7 @@
         app:layout_constraintTop_toBottomOf="@+id/tiAwnser1">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etAwn2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:digits="T, F" />
@@ -187,6 +189,7 @@
         app:layout_constraintTop_toBottomOf="@+id/tiAwnser2">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etAwn3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:digits="T, F" />
@@ -204,6 +207,7 @@
         app:layout_constraintVertical_bias="0.063">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etAwn4"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:digits="T, F" />
