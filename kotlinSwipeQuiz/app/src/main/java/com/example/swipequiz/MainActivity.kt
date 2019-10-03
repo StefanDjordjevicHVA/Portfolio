@@ -18,7 +18,9 @@ import java.nio.file.attribute.PosixFileAttributeView
 class MainActivity : AppCompatActivity() {
 
     private val questions = arrayListOf<Question>()
-    private val questionAdapter = QuestionAdapter(questions)
+
+    //setting the listener to a method to show answer
+    private val questionAdapter = QuestionAdapter(questions, {question : Question -> showAnswer(question)})
 
     private lateinit var constraintLayout: ConstraintLayout
 
@@ -39,9 +41,10 @@ class MainActivity : AppCompatActivity() {
         {
             questions.add(Question(Question.QUESTIONS[i], Question.ANSWERS[i]))
         }
-        questionAdapter.notifyDataSetChanged()
 
         createItemTouchHelper().attachToRecyclerView(rvQuestions)
+
+        questionAdapter.notifyDataSetChanged()
     }
 
     private fun createItemTouchHelper(): ItemTouchHelper
@@ -52,7 +55,7 @@ class MainActivity : AppCompatActivity() {
                 recyclerView: RecyclerView,
                 viewHolder: RecyclerView.ViewHolder,
                 target: RecyclerView.ViewHolder
-            ): Boolean
+                ): Boolean
             {
                 return true
             }
@@ -60,21 +63,47 @@ class MainActivity : AppCompatActivity() {
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
                 val position = viewHolder.adapterPosition
 
-                if(direction == ItemTouchHelper.LEFT) onSwipeLeft()
+                if(direction == ItemTouchHelper.LEFT) onSwipeLeft(position)
                 else if(direction == ItemTouchHelper.RIGHT) onSwipeRight(position)
+
+                questionAdapter.notifyItemChanged(viewHolder.adapterPosition)
             }
+
+
         }
         return ItemTouchHelper(callback)
     }
 
-    private fun onSwipeLeft()
+    private fun onSwipeLeft(pos: Int)
     {
-        var snack = Snackbar.make(constraintLayout, "LEFT", Snackbar.LENGTH_LONG)
-        snack.show()
+        if(questions[pos].answer) {
+            val snack = Snackbar.make(constraintLayout, R.string.correct, Snackbar.LENGTH_LONG)
+            snack.show()
+        }
+        else
+        {
+            val  snack = Snackbar.make(constraintLayout, R.string.wrong, Snackbar.LENGTH_LONG)
+            snack.show()
+        }
     }
 
-    private fun onSwipeRight(Pos: Int)
+    private fun onSwipeRight(pos: Int)
     {
+        if(!questions[pos].answer) {
+            val snack = Snackbar.make(constraintLayout, R.string.correct, Snackbar.LENGTH_LONG)
+            snack.show()
+        }
+        else
+        {
+            val snack = Snackbar.make(constraintLayout, R.string.wrong, Snackbar.LENGTH_LONG)
+            snack.show()
+        }
+    }
 
+    //method to use in the viewholder listener
+    private fun showAnswer(question: Question)
+    {
+        val snack = Snackbar.make(constraintLayout, "This statement is " + question.answer + "!", Snackbar.LENGTH_LONG)
+        snack.show()
     }
 }
