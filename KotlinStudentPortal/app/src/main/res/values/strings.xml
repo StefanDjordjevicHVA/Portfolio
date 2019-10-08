@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">Kotlin Student Portal</string>
+    <string name="addPortal">Add Portal</string>
+    <string name="name">Portal Name</string>
+    <string name="url">Portal URL</string>
+    <string name="http">http://</string>
+    <string name="portalButtonName">%1$s %2$s</string>
+    <string name="portalAdded"> Successfully added a portal</string>
 </resources>
