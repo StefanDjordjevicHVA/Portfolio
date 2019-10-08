@@ -18,8 +18,9 @@ class SplashActivity : AppCompatActivity()
             {
                 startActivity(
                     Intent(
-                        this@SplashActivity
+                        this@SplashActivity,
                         CreateProfileActivity::class.java
+
                     )
                 )
                 finish()
