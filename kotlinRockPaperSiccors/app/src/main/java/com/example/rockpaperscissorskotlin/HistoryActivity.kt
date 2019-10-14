@@ -2,10 +2,13 @@ package com.example.rockpaperscissorskotlin
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.activity_history.*
+import kotlinx.android.synthetic.main.activity_history.toolbar
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -29,6 +32,10 @@ class HistoryActivity : AppCompatActivity()
 
     private fun initViews()
     {
+        setSupportActionBar(toolbar)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.title = "Match History"
+
         rvMatches.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
         rvMatches.adapter = matchAdapter
         rvMatches.addItemDecoration(DividerItemDecoration(this, DividerItemDecoration.VERTICAL))
@@ -45,7 +52,42 @@ class HistoryActivity : AppCompatActivity()
             this@HistoryActivity.matches.clear()
             this@HistoryActivity.matches.addAll(matchList)
             this@HistoryActivity.matchAdapter.notifyDataSetChanged()
-
         }
     }
+
+    private fun deleteAllMatches()
+    {
+        mainScope.launch {
+            withContext(Dispatchers.IO) {
+                matchRepository.deleteAllMatches()
+            }
+            this@HistoryActivity.matches.clear()
+            this@HistoryActivity.matchAdapter.notifyDataSetChanged()
+        }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean
+    {
+        menuInflater.inflate(R.menu.menu_history, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        return when (item?.itemId)
+        {
+            android.R.id.home ->
+            {
+                finish()
+                true
+            }
+            R.id.action_delete_all ->
+            {
+                deleteAllMatches()
+                true
+            }
+            else -> return super.onOptionsItemSelected(item)
+        }
+    }
+
+
 }
