@@ -1,5 +1,6 @@
 package com.example.task5opdracht1
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.lifecycle.Observer
@@ -24,10 +25,11 @@ class MainActivity : AppCompatActivity()
 
     private fun initViews()
     {
-        fab.setOnClickListener { view -> Snackbar.make(
-            view,
-            "Replace with your own action",
-            Snackbar.LENGTH_LONG).setAction("Action", null) }
+        fab.setOnClickListener {
+            val intent = Intent(this, EditActivity::class.java)
+            intent.putExtra(EditActivity.EXTRA_NOTE, mainActivityViewModel.note.value)
+            startActivity(intent)
+        }
     }
 
     private fun initViewModel()
