@@ -11,10 +11,8 @@ import java.util.*
 @Entity
 public data class Note (
 
-    val title: String,
-    val lastUpdated: Date,
-    val text: String,
+    var title: String,
+    var lastUpdated: Date,
+    var text: String,
 
-    @PrimaryKey(autoGenerate = true)
-    @ColumnInfo(name = "id")
-    var id: Long? = null ) : Parcelable
+    @PrimaryKey var id: Long? = null ) : Parcelable

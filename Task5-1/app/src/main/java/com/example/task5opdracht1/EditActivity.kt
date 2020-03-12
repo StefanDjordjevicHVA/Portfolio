@@ -2,10 +2,12 @@ package com.example.task5opdracht1
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.MenuItem
 import android.widget.Toast
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import androidx.room.InvalidationTracker
+import com.example.task5opdracht1.R
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_edit.*
 import java.util.*
@@ -58,8 +60,8 @@ class EditActivity : AppCompatActivity()
             Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
         })
 
-        editViewModel.success.observe(this, Observer { success ->
-            if (success) finish()
+        editViewModel.succes.observe(this, Observer  { succes ->
+            if (succes) finish()
         })
     }
 

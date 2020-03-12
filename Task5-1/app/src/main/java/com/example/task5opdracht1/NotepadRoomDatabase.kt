@@ -16,7 +16,7 @@ abstract class NotepadRoomDatabase : RoomDatabase()
 
     companion object
     {
-        private const val DATABASE_NAME = "NOTEPAD_DATABASE"
+        private const val DATABASE_NAME = "NOTEPAD_DATABASE1"
 
         @Volatile
         private var INSTANCE: NotepadRoomDatabase? = null
